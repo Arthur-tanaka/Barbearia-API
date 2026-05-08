@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
+from users.permissions import IsOwnerOnly
 from .models import Agendamento
 from .serializers import AgendamentoSerializer
 from rest_framework.permissions import IsAuthenticated
@@ -12,4 +13,4 @@ class AgendamentoViewSet(viewsets.ModelViewSet):
         # Define o cliente como o usuário autenticado
         serializer.save(cliente=self.request.user)
         
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOnly]
