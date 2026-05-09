@@ -37,3 +37,17 @@ class AgendamentosTestCase(TestCase):
         })
         self.assertEqual(response.status_code, 400)
         self.assertIn('A data do agendamento deve ser no futuro.', str(response.data))
+        
+    def test_conflito_horario(self):
+        # Cria um agendamento para o barbeiro
+        self.client.post('/api/agendamentos/', {
+            'barbeiro': self.barbeiro_obj.id,
+            'data': '2027-07-10T10:00:00Z'
+        })
+        # Tenta criar outro agendamento no mesmo horário
+        response = self.client.post('/api/agendamentos/', {
+            'barbeiro': self.barbeiro_obj.id,
+            'data': '2027-07-10T10:00:00Z'  # Mesmo horário
+        })
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('O barbeiro já tem um agendamento nesse horário.', str(response.data))
