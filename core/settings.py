@@ -18,18 +18,6 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i+dd4ryvbdl@@jp7_+k!jh(c88xb7%32-5jdt4m%zeywg!mz48'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost').split(',')
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -133,5 +121,6 @@ AUTH_USER_MODEL = 'users.Usuario'
 
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost').split(',')
 
 
