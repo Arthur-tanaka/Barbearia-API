@@ -8,9 +8,8 @@ class AgendamentoSerializer(serializers.ModelSerializer):
     def validate_data(self, value):
         if value < timezone.now():
             raise serializers.ValidationError("A data do agendamento deve ser no futuro.")
-        return value
+        return value    
     def validate(self, data):
-        # Verifica se o barbeiro já tem um agendamento no mesmo horário
         if Agendamento.objects.filter(barbeiro=data['barbeiro'], data=data['data']).exists():
             raise serializers.ValidationError("O barbeiro já tem um agendamento nesse horário.")
         return data
