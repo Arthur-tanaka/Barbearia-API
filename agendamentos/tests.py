@@ -25,7 +25,15 @@ class AgendamentosTestCase(TestCase):
     def test_create_agendamento(self):
         response = self.client.post('/api/agendamentos/', {
             'barbeiro': self.barbeiro_obj.id,
-            'data': '2024-07-01T10:00:00Z'
+            'data': '2027-07-10T10:00:00Z'
         })
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.data['cliente'], self.usuario.id)
+        
+    def test_agendamento_data_passado(self):
+        response = self.client.post('/api/agendamentos/', {
+            'barbeiro': self.barbeiro_obj.id,
+            'data': '2020-01-01T10:00:00Z'  # Data no passado
+        })
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('A data do agendamento deve ser no futuro.', str(response.data))
