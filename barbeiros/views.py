@@ -16,3 +16,6 @@ class BarbeiroViewSet(viewsets.ModelViewSet):
         if self.action == 'create':
             return [AllowAny()]
         return [IsAuthenticated()]
+    def perform_create(self, serializer):
+        # Define o usuário autenticado como o dono do barbeiro
+        serializer.save(usuario=self.request.user)

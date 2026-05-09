@@ -8,4 +8,4 @@ class BarbeiroSerializer(serializers.ModelSerializer):
     class Meta:
         model = Barbeiro
         fields = ['id', 'usuario', 'nome', 'telefone', 'servico_oferecido']
-        
+        read_only_fields = ['usuario']
